@@ -84,6 +84,14 @@ public abstract class Controller : MonoBehaviour
 		}
 	}
 	
+	public void Shoot (Vector3 direction)
+	{
+		if (snowBallInstanceScript != null) {
+			snowBallInstanceScript.Shoot (direction);
+			snowBallInstanceScript = null;
+		}
+	}
+	
 	public void Duck ()
 	{
 		state = CharacterState.IS_DUCKING;			
