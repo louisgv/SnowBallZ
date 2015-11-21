@@ -13,7 +13,9 @@ public abstract class Controller : MonoBehaviour
 	
 	private Transform body;
 	
-	private Transform walls;
+	public GameObject wallsPrefab;
+	
+	private GameObject wallsInstance;
 	
 	public enum CharacterState
 	{
@@ -27,33 +29,35 @@ public abstract class Controller : MonoBehaviour
 	{
 		head = transform.GetChild (0);
 		body = transform.GetChild (1);
-		walls = transform.GetChild (2);
 		
-		walls.GetComponent<WallsScript> ().owner = gameObject; // Association
+		wallsInstance = Instantiate (wallsPrefab, transform.position, transform.rotation) as GameObject;
+		wallsInstance.transform.GetComponent<WallsScript> ().owner = gameObject; // Association
 	}
 	
 	public CharacterState state = CharacterState.IS_AIMING;
 	
 	public void Charge ()
 	{
-		state = CharacterState.IS_CHARGING;
+		if (snowBallInstanceScript == null) {		
+			float ballDistance = 0.5f;
 		
-		float ballDistance = 0.5f;
+			float ballHeight = 1.8f;
 		
-		float ballHeight = 1.8f;
+			snowBallInstance = Instantiate (
+				snowBallPrefab,
+				transform.position + Vector3.one * ballDistance + Vector3.up * ballHeight, 
+				transform.rotation) as GameObject;
 		
-		snowBallInstance = Instantiate (
-			snowBallPrefab,
-			transform.position + Vector3.one * ballDistance + Vector3.up * ballHeight, 
-			transform.rotation) as GameObject;
+			snowBallInstance.transform.SetParent (transform);
 		
-		snowBallInstance.transform.SetParent (transform);
+			snowBallInstanceScript = snowBallInstance.GetComponent<SnowBallScript> ();
 		
-		snowBallInstanceScript = snowBallInstance.GetComponent<SnowBallScript> ();
+			snowBallInstanceScript.owner = gameObject; // Association
 		
-		snowBallInstanceScript.owner = gameObject; // Association
-		
-		snowBallInstanceScript.Charge ();
+			snowBallInstanceScript.Charge ();
+			
+			state = CharacterState.IS_CHARGING;
+		} 
 	}
 	
 	public void Aim ()
@@ -67,8 +71,7 @@ public abstract class Controller : MonoBehaviour
 	{
 		if (snowBallInstanceScript != null) {
 			snowBallInstanceScript.Shoot (transform.forward);
-			
-			
+			snowBallInstanceScript = null;
 		}
 	}
 	
@@ -85,6 +88,11 @@ public abstract class Controller : MonoBehaviour
 			head.localPosition = Vector3.Lerp (head.localPosition, Vector3.zero, Time.deltaTime * duckSpeed);
 		} else {
 			head.localPosition = Vector3.Lerp (head.localPosition, Vector3.up * 0.9f, Time.deltaTime * duckSpeed);
+		}
+		
+		if (state.Equals (CharacterState.IS_SHOOTING)) {
+			Shoot ();
+			state = CharacterState.IS_AIMING;
 		}
 	}
 }

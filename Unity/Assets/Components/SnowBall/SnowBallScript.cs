@@ -87,5 +87,8 @@ public class SnowBallScript : MonoBehaviour
 			//TODO: Play the exploding animation
 		}
 		
+		if (transform.localPosition.magnitude > 100.0f) {
+			Destroy (gameObject);
+		}
 	}
 }
