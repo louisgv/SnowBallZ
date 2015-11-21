@@ -25,8 +25,8 @@ public abstract class Controller : MonoBehaviour
 	
 	public void Awake ()
 	{
-		wallsInstance = Instantiate (wallsPrefab, transform.position, transform.rotation) as GameObject;
-		wallsPrefab.transform.GetComponent<WallsScript> ().owner = gameObject; // Association
+		//wallsInstance = Instantiate (wallsPrefab, transform.position, transform.rotation) as GameObject;
+		//wallsInstance.transform.GetComponent<WallsScript> ().owner = gameObject; // Association
 	}
 	
 	public CharacterState state = CharacterState.IS_AIMING;
@@ -70,7 +70,6 @@ public abstract class Controller : MonoBehaviour
 			Vector3 temp = new Vector3 (transform.TransformPoint (Vector3.zero).x,
 			                            transform.TransformPoint (Vector3.zero).y,
 			                            transform.TransformPoint (Vector3.zero).z);
-			;
 			snowBallInstanceScript.transform.SetParent (null);
 			//snowBallInstanceScript.enabled = false;
 			snowBallInstanceScript.transform.localRotation = Quaternion.identity;

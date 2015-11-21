@@ -4,7 +4,7 @@ using System.Collections;
 public class SnowBallScript : MonoBehaviour
 {
 	
-	public const float SIZE_MAX = 4.5f;
+	public const float SIZE_MAX = 1.5f;
 	
 	public float sizeSpeed = 0.18f;
 	 

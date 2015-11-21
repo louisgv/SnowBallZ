@@ -9,7 +9,10 @@ public class AI : Controller
 	public float shootAngle = 90.0f;
 	
 	public float speed = 45.0f;
-	
+
+	public float AimTimer = 4f;
+
+	int index = 0;
 	// Use this for initialization
 	public enum AIMode
 	{
@@ -26,8 +29,8 @@ public class AI : Controller
 	{
 //		StartCoroutine (test ());
 		// TODO: Set Random Bot Mode!
-		head = transform.GetChild (0);
-		body = transform.GetChild (1);
+		//head = transform.GetChild (0);
+		//body = transform.GetChild (1);
 		
 	}
 	
@@ -48,12 +51,12 @@ public class AI : Controller
 	void Update ()
 	{
 		base.Update ();
-		
+		/*
 		if (state.Equals (CharacterState.IS_DUCKING)) {
 			head.localPosition = Vector3.Lerp (head.localPosition, Vector3.zero, Time.deltaTime * duckSpeed);
 		} else {
 			head.localPosition = Vector3.Lerp (head.localPosition, Vector3.up * 0.9f, Time.deltaTime * duckSpeed);
-		}
+		}*/
 		if (mode.Equals (AIMode.TRASH)) {
 			TrashMode ();
 		}
@@ -68,27 +71,31 @@ public class AI : Controller
 	{
 		//	Choose A Random Target that is not itself
 		GameObject[] pool = GameObject.FindGameObjectsWithTag ("Character");
+
 		
-		int index = Random.Range (0, pool.Length);
-		
-		Charge (transform.forward);
+		Charge (centerEyeAnchor.transform.forward);
 		
 		if (pool.Length > 2) {
-			while (pool [index].transform.parent.gameObject.Equals( gameObject)) {
-				index = Random.Range (0, pool.Length);	
+			if(AimTimer < 0){
+				index = Random.Range (0, pool.Length);
+				while (pool [index].transform.parent.gameObject.Equals( gameObject)) {
+					index = Random.Range (0, pool.Length);	
+				}
+				AimTimer = 4f;
 			}
-		
-		
-			Vector3 direction = pool [index].transform.position - transform.position;
-		
-			transform.LookAt (pool [index].transform.position);				
-		
-			if (Random.value > 0.99f) {
-				Duck ();
-			}
-			if (Random.value > 0.999f) {
-				Shoot (direction.normalized);
-			}
+				Vector3 direction = pool [index].transform.position - transform.position;
+			
+				//transform.rotation = Quaternion.FromToRotation(transform.rotation, transform.forward);				
+			
+				if (Random.value > 0.99f) {
+					Duck ();
+				}
+				if (Random.value > 0.99f) {
+					Shoot (transform.forward);
+				}
+					
+
+			AimTimer -= Time.deltaTime;
 		}
 	}
 	
@@ -98,7 +105,7 @@ public class AI : Controller
 		
 		transform.Rotate (0, Time.deltaTime * speed, 0, Space.World);
 		
-		Charge (transform.forward);
+		Charge (transform.position+ Vector3.forward * 5f);
 		
 		if (Random.value > 0.99f) {
 			Shoot ();
