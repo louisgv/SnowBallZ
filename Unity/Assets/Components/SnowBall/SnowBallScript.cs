@@ -13,6 +13,7 @@ public class SnowBallScript : MonoBehaviour
 	public GameObject owner;
 	
 	private Vector3 direction;
+	private Vector3 startPosition;
 	 
 	public enum BallState
 	{
@@ -27,6 +28,7 @@ public class SnowBallScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		startPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 		direction = transform.forward;
 		transform.localScale *= 0.1f;
 	}
@@ -87,7 +89,7 @@ public class SnowBallScript : MonoBehaviour
 			//TODO: Play the exploding animation
 		}
 		
-		if (transform.localPosition.magnitude > 100.0f) {
+		if (Vector3.Distance(startPosition, transform.position) > 300.0f) {
 			Destroy (gameObject);
 		}
 	}

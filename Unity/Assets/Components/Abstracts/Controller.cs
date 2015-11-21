@@ -9,13 +9,11 @@ public abstract class Controller : MonoBehaviour
 	
 	private SnowBallScript snowBallInstanceScript;
 	
-	private Transform head;
-	
-	private Transform body;
-	
 	public GameObject wallsPrefab;
 	
 	private GameObject wallsInstance;
+
+	public GameObject centerEyeAnchor;
 	
 	public enum CharacterState
 	{
@@ -27,16 +25,16 @@ public abstract class Controller : MonoBehaviour
 	
 	public void Awake ()
 	{
-		head = transform.GetChild (0);
-		body = transform.GetChild (1);
+		//head = transform.GetChild (0);
+		//body = transform.GetChild (1);
 		
-		wallsInstance = Instantiate (wallsPrefab, transform.position, transform.rotation) as GameObject;
-		wallsInstance.transform.GetComponent<WallsScript> ().owner = gameObject; // Association
+		//wallsInstance = Instantiate (wallsPrefab, transform.position, transform.rotation) as GameObject;
+		wallsPrefab.transform.GetComponent<WallsScript> ().owner = gameObject; // Association
 	}
 	
 	public CharacterState state = CharacterState.IS_AIMING;
 	
-	public void Charge ()
+	public void Charge (Vector3 position)
 	{
 		if (snowBallInstanceScript == null) {		
 			float ballDistance = 0.5f;
@@ -45,19 +43,20 @@ public abstract class Controller : MonoBehaviour
 		
 			snowBallInstance = Instantiate (
 				snowBallPrefab,
-				transform.position + Vector3.one * ballDistance + Vector3.up * ballHeight, 
+				position, 
 				transform.rotation) as GameObject;
 		
-			snowBallInstance.transform.SetParent (transform);
+			snowBallInstance.transform.SetParent (centerEyeAnchor.transform);
 		
 			snowBallInstanceScript = snowBallInstance.GetComponent<SnowBallScript> ();
 		
 			snowBallInstanceScript.owner = gameObject; // Association
 		
-			snowBallInstanceScript.Charge ();
-			
-			state = CharacterState.IS_CHARGING;
+
 		} 
+		snowBallInstanceScript.Charge ();
+		state = CharacterState.IS_CHARGING;
+		Debug.Log("building snowball");
 	}
 	
 	public void Aim ()
@@ -65,12 +64,22 @@ public abstract class Controller : MonoBehaviour
 		if (snowBallInstanceScript != null) {	
 			snowBallInstanceScript.Aim ();
 		}
+		state = CharacterState.IS_AIMING;
 	}
 	
 	public void Shoot ()
 	{
 		if (snowBallInstanceScript != null) {
-			snowBallInstanceScript.Shoot (transform.forward);
+			Vector3 temp =  new Vector3(transform.TransformPoint(Vector3.zero).x,
+			                            transform.TransformPoint(Vector3.zero).y,
+			                            transform.TransformPoint(Vector3.zero).z);
+			                            ;
+			snowBallInstanceScript.transform.SetParent(null);
+			//snowBallInstanceScript.enabled = false;
+			snowBallInstanceScript.transform.localRotation = Quaternion.identity;
+			snowBallInstanceScript.Shoot (centerEyeAnchor.transform.forward);
+			//snowBallInstanceScript.transform.localPosition = Vector3.zero;
+			//snowBallInstanceScript.transform.position= temp;
 			snowBallInstanceScript = null;
 		}
 	}
@@ -85,9 +94,9 @@ public abstract class Controller : MonoBehaviour
 	public void Update ()
 	{
 		if (state.Equals (CharacterState.IS_DUCKING)) {
-			head.localPosition = Vector3.Lerp (head.localPosition, Vector3.zero, Time.deltaTime * duckSpeed);
+			//head.localPosition = Vector3.Lerp (head.localPosition, Vector3.zero, Time.deltaTime * duckSpeed);
 		} else {
-			head.localPosition = Vector3.Lerp (head.localPosition, Vector3.up * 0.9f, Time.deltaTime * duckSpeed);
+			//head.localPosition = Vector3.Lerp (head.localPosition, Vector3.up * 0.9f, Time.deltaTime * duckSpeed);
 		}
 		
 		if (state.Equals (CharacterState.IS_SHOOTING)) {
