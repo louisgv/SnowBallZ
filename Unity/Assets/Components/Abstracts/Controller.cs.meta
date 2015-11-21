@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: aff3a345e66afe54095988bdb9ae669a
-timeCreated: 1448088770
+timeCreated: 1448096142
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - snowBallPrefab: {fileID: 412866, guid: 53df86c5551f3fa4e9fb698d3050a8e0, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

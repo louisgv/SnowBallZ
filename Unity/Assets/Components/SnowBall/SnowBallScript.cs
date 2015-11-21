@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SnowBall : MonoBehaviour
+public class SnowBallScript : MonoBehaviour
 {
 	
 	public const float SIZE_MAX = 4.5f;
 	
-	public float sizeSpeed = 90.0f;
+	public float sizeSpeed = 0.18f;
 	 
-	public float speed = 90.0f;
+	public float speed = 45.0f;
 	 
 	private Vector3 direction;
 	 
@@ -29,6 +29,11 @@ public class SnowBall : MonoBehaviour
 		transform.localScale *= 0.1f;
 	}
 	
+	public void Aim ()
+	{
+		state = BallState.IS_AIMING;
+	}
+	
 	public void Charge ()
 	{
 		state = BallState.IS_CHARGING;
@@ -45,7 +50,9 @@ public class SnowBall : MonoBehaviour
 		Debug.Log ("Touched a " + other.name);
 		
 		//TODO: IF other is AI or Player, decrease health
-		state = BallState.IS_EXPLODING;
+		if (other.CompareTag ("Player") || other.CompareTag ("AI")) {
+			state = BallState.IS_EXPLODING;
+		}
 	}
 	
 	// Update is called once per frame
