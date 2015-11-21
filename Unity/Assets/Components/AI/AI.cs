@@ -27,10 +27,15 @@ public class AI : Controller
 		
 	}
 	
-	void BeTrashAI ()
+	public void BeTrashAI ()
 	{
 		// Rotate for some degree
 		mode = AIMode.TRASH;
+	}
+	
+	public void BeSoSoAI ()
+	{
+		mode = AIMode.SOSO;
 	}
 	
 	// Update is called once per frame
@@ -41,7 +46,38 @@ public class AI : Controller
 		if (mode.Equals (AIMode.TRASH)) {
 			TrashMode ();
 		}
+		
+		if (mode.Equals (AIMode.SOSO)) {
+			SoSoMode ();
+		}
 			
+	}
+	
+	void SoSoMode ()
+	{
+		//	Choose A Random Target that is not itself
+		GameObject[] pool = GameObject.FindGameObjectsWithTag ("Character");
+		
+		int index = Random.Range (0, pool.Length);
+		
+		Charge ();
+		
+		if (pool.Length > 2) {
+			while (pool [index].transform.parent.gameObject.Equals( gameObject)) {
+				index = Random.Range (0, pool.Length);	
+			}
+		}
+		
+		Vector3 direction = pool [index].transform.position - transform.position;
+		
+		transform.LookAt (pool [index].transform.position);				
+		
+		if (Random.value > 0.99f) {
+			Duck ();
+		}
+		if (Random.value > 0.99f) {
+			Shoot (direction.normalized);
+		}
 	}
 	
 	void TrashMode ()
