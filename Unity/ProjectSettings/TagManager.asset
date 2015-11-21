@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Character
+  - Mound
   layers:
   - Default
   - TransparentFX
