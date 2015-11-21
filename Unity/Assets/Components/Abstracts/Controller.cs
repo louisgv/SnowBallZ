@@ -25,10 +25,7 @@ public abstract class Controller : MonoBehaviour
 	
 	public void Awake ()
 	{
-		//head = transform.GetChild (0);
-		//body = transform.GetChild (1);
-		
-		//wallsInstance = Instantiate (wallsPrefab, transform.position, transform.rotation) as GameObject;
+		wallsInstance = Instantiate (wallsPrefab, transform.position, transform.rotation) as GameObject;
 		wallsPrefab.transform.GetComponent<WallsScript> ().owner = gameObject; // Association
 	}
 	
@@ -56,7 +53,7 @@ public abstract class Controller : MonoBehaviour
 		} 
 		snowBallInstanceScript.Charge ();
 		state = CharacterState.IS_CHARGING;
-		Debug.Log("building snowball");
+		Debug.Log ("building snowball");
 	}
 	
 	public void Aim ()
@@ -70,11 +67,11 @@ public abstract class Controller : MonoBehaviour
 	public void Shoot ()
 	{
 		if (snowBallInstanceScript != null) {
-			Vector3 temp =  new Vector3(transform.TransformPoint(Vector3.zero).x,
-			                            transform.TransformPoint(Vector3.zero).y,
-			                            transform.TransformPoint(Vector3.zero).z);
-			                            ;
-			snowBallInstanceScript.transform.SetParent(null);
+			Vector3 temp = new Vector3 (transform.TransformPoint (Vector3.zero).x,
+			                            transform.TransformPoint (Vector3.zero).y,
+			                            transform.TransformPoint (Vector3.zero).z);
+			;
+			snowBallInstanceScript.transform.SetParent (null);
 			//snowBallInstanceScript.enabled = false;
 			snowBallInstanceScript.transform.localRotation = Quaternion.identity;
 			snowBallInstanceScript.Shoot (centerEyeAnchor.transform.forward);
@@ -96,9 +93,7 @@ public abstract class Controller : MonoBehaviour
 	{
 		state = CharacterState.IS_DUCKING;			
 	}
-	
-	private float duckSpeed = 10.0f;
-	
+		
 	public void Update ()
 	{
 		if (state.Equals (CharacterState.IS_DUCKING)) {

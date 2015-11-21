@@ -18,12 +18,16 @@ public class AI : Controller
 		AOK
 	}
 	
+	private Transform head, body;
+	
 	public AIMode mode = AIMode.TRASH;
 	
 	void Start ()
 	{
 //		StartCoroutine (test ());
 		// TODO: Set Random Bot Mode!
+		head = transform.GetChild (0);
+		body = transform.GetChild (1);
 		
 	}
 	
@@ -38,11 +42,18 @@ public class AI : Controller
 		mode = AIMode.SOSO;
 	}
 	
+	private float duckSpeed = 10.0f;
+	
 	// Update is called once per frame
 	void Update ()
 	{
 		base.Update ();
 		
+		if (state.Equals (CharacterState.IS_DUCKING)) {
+			head.localPosition = Vector3.Lerp (head.localPosition, Vector3.zero, Time.deltaTime * duckSpeed);
+		} else {
+			head.localPosition = Vector3.Lerp (head.localPosition, Vector3.up * 0.9f, Time.deltaTime * duckSpeed);
+		}
 		if (mode.Equals (AIMode.TRASH)) {
 			TrashMode ();
 		}
@@ -60,23 +71,24 @@ public class AI : Controller
 		
 		int index = Random.Range (0, pool.Length);
 		
-		Charge ();
+		Charge (transform.forward);
 		
 		if (pool.Length > 2) {
 			while (pool [index].transform.parent.gameObject.Equals( gameObject)) {
 				index = Random.Range (0, pool.Length);	
 			}
-		}
 		
-		Vector3 direction = pool [index].transform.position - transform.position;
 		
-		transform.LookAt (pool [index].transform.position);				
+			Vector3 direction = pool [index].transform.position - transform.position;
 		
-		if (Random.value > 0.99f) {
-			Duck ();
-		}
-		if (Random.value > 0.99f) {
-			Shoot (direction.normalized);
+			transform.LookAt (pool [index].transform.position);				
+		
+			if (Random.value > 0.99f) {
+				Duck ();
+			}
+			if (Random.value > 0.999f) {
+				Shoot (direction.normalized);
+			}
 		}
 	}
 	
@@ -86,7 +98,7 @@ public class AI : Controller
 		
 		transform.Rotate (0, Time.deltaTime * speed, 0, Space.World);
 		
-		Charge (transform.position);
+		Charge (transform.forward);
 		
 		if (Random.value > 0.99f) {
 			Shoot ();

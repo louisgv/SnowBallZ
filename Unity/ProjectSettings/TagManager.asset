@@ -6,11 +6,6 @@ TagManager:
   tags:
   - Wall
   - Character
-<<<<<<< HEAD
-  - WorldHUD
-=======
-  - Mound
->>>>>>> origin/master
   layers:
   - Default
   - TransparentFX
@@ -20,9 +15,9 @@ TagManager:
   - UI
   - 
   - 
-  - Objects
-  - LeftEyeOnly
-  - RightEyeOnly
+  - 
+  - 
+  - 
   - 
   - 
   - 

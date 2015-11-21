@@ -94,7 +94,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 460232, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 15.1000004
       objectReference: {fileID: 0}
     - target: {fileID: 460232, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
       propertyPath: m_LocalPosition.y
@@ -102,7 +102,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 460232, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 15.3999996
       objectReference: {fileID: 0}
     - target: {fileID: 460232, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
       propertyPath: m_LocalRotation.x
@@ -415,19 +415,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 460232, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11446286, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11446286, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
-      propertyPath: healthPanelOffset
-      value: 1.79999995
-      objectReference: {fileID: 0}
-    - target: {fileID: 11409550, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
-      propertyPath: mode
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
