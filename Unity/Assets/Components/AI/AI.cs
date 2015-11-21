@@ -21,11 +21,12 @@ public class AI : Controller
 		Aim ();
 		transform.Rotate (new Vector3 (0, shootAngle));
 		Shoot ();
+		Duck ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		base.Update ();
 	}
 }
