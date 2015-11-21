@@ -7,7 +7,13 @@ public abstract class Controller : MonoBehaviour
 	
 	private GameObject snowBallInstance;
 	
-	private SnowBallScript snowBallInstanceController;
+	private SnowBallScript snowBallInstanceScript;
+	
+	private Transform head;
+	
+	private Transform body;
+	
+	private Transform walls;
 	
 	public enum CharacterState
 	{
@@ -15,6 +21,15 @@ public abstract class Controller : MonoBehaviour
 		IS_DUCKING,
 		IS_SHOOTING,
 		IS_CHARGING
+	}
+	
+	public void Awake ()
+	{
+		head = transform.GetChild (0);
+		body = transform.GetChild (1);
+		walls = transform.GetChild (2);
+		
+		walls.GetComponent<WallsScript> ().owner = gameObject; // Association
 	}
 	
 	public CharacterState state = CharacterState.IS_AIMING;
@@ -34,26 +49,42 @@ public abstract class Controller : MonoBehaviour
 		
 		snowBallInstance.transform.SetParent (transform);
 		
-		snowBallInstanceController = snowBallInstance.GetComponent<SnowBallScript> ();
-		snowBallInstanceController.Charge ();
+		snowBallInstanceScript = snowBallInstance.GetComponent<SnowBallScript> ();
+		
+		snowBallInstanceScript.owner = gameObject; // Association
+		
+		snowBallInstanceScript.Charge ();
 	}
 	
 	public void Aim ()
 	{
-		if (state != CharacterState.IS_AIMING) {
-			snowBallInstanceController.Aim ();
+		if (snowBallInstanceScript != null) {	
+			snowBallInstanceScript.Aim ();
 		}
 	}
 	
 	public void Shoot ()
 	{
-		if (snowBallInstanceController != null) {
-			snowBallInstanceController.Shoot (transform.forward);
+		if (snowBallInstanceScript != null) {
+			snowBallInstanceScript.Shoot (transform.forward);
+			
+			
 		}
 	}
 	
-	public void Dodge ()
+	public void Duck ()
 	{
-		
+		state = CharacterState.IS_DUCKING;			
+	}
+	
+	private float duckSpeed = 10.0f;
+	
+	public void Update ()
+	{
+		if (state.Equals (CharacterState.IS_DUCKING)) {
+			head.localPosition = Vector3.Lerp (head.localPosition, Vector3.zero, Time.deltaTime * duckSpeed);
+		} else {
+			head.localPosition = Vector3.Lerp (head.localPosition, Vector3.up * 0.9f, Time.deltaTime * duckSpeed);
+		}
 	}
 }

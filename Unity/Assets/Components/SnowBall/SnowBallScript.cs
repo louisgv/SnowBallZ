@@ -10,6 +10,8 @@ public class SnowBallScript : MonoBehaviour
 	 
 	public float speed = 45.0f;
 	 
+	public GameObject owner;
+	
 	private Vector3 direction;
 	 
 	public enum BallState
@@ -47,12 +49,22 @@ public class SnowBallScript : MonoBehaviour
 	
 	public void OnTriggerEnter (Collider other)
 	{
-		Debug.Log ("Touched a " + other.name);
 		
 		//TODO: IF other is AI or Player, decrease health
-		if (other.CompareTag ("Player") || other.CompareTag ("AI")) {
-			state = BallState.IS_EXPLODING;
+		if (owner != null && 
+			((other.CompareTag ("Wall") && !owner.Equals (other.transform.parent.GetComponent<WallsScript> ().owner)) || 
+			(other.CompareTag ("Character") && !owner.Equals (other.gameObject)))) {
+			if (other.transform.parent != null) {
+				
+				Debug.Log ("Hit " + other.name);
+				
+				HealthPoint otherHP = other.transform.parent.GetComponent<HealthPoint> ();
+				otherHP.OneDown ();
+				state = BallState.IS_EXPLODING;
+				
+			}
 		}
+			
 	}
 	
 	// Update is called once per frame
