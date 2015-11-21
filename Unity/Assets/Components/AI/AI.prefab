@@ -264,7 +264,7 @@ MonoBehaviour:
   shootDelay: 6
   shootAngle: 90
   speed: 4.5
-  mode: 1
+  mode: 0
 --- !u!114 &11446286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -276,7 +276,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faaa4ed5deb225c43a5dd0cbda04b9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 3
+  canvas: {fileID: 0}
+  healthPrefab: {fileID: 150082, guid: 87f8125240549f745b29cbc7b118dca2, type: 2}
+  healthPanelOffset: .349999994
+  healthPanel: {fileID: 0}
+  maxHealth: 3
 --- !u!135 &13564480
 SphereCollider:
   m_ObjectHideFlags: 1

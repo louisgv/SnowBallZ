@@ -399,7 +399,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faaa4ed5deb225c43a5dd0cbda04b9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 5
+  canvas: {fileID: 22339442, guid: 60dfc7bf6d69e974984cdf21f06edc60, type: 2}
+  healthPrefab: {fileID: 150082, guid: 87f8125240549f745b29cbc7b118dca2, type: 2}
+  healthPanelOffset: .349999994
+  healthPanel: {fileID: 0}
+  maxHealth: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -411,6 +415,11 @@ Prefab:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 22339442, guid: 60dfc7bf6d69e974984cdf21f06edc60,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 174628}
