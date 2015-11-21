@@ -86,7 +86,7 @@ public class AI : Controller
 		
 		transform.Rotate (0, Time.deltaTime * speed, 0, Space.World);
 		
-		Charge ();
+		Charge (transform.position);
 		
 		if (Random.value > 0.99f) {
 			Shoot ();

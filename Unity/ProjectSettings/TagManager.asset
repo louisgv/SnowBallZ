@@ -6,7 +6,11 @@ TagManager:
   tags:
   - Wall
   - Character
+<<<<<<< HEAD
   - WorldHUD
+=======
+  - Mound
+>>>>>>> origin/master
   layers:
   - Default
   - TransparentFX
