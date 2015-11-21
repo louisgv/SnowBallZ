@@ -44,7 +44,7 @@ public abstract class Controller : MonoBehaviour
 		
 		snowBallInstance = Instantiate (
 			snowBallPrefab,
-			transform.forward + Vector3.one * ballDistance + Vector3.up * ballHeight, 
+			transform.position + Vector3.one * ballDistance + Vector3.up * ballHeight, 
 			transform.rotation) as GameObject;
 		
 		snowBallInstance.transform.SetParent (transform);
