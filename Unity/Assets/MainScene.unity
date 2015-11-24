@@ -750,7 +750,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 460232, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 182146, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
       propertyPath: m_Name
@@ -758,7 +758,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 460232, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 3.0999999
       objectReference: {fileID: 0}
     - target: {fileID: 460232, guid: 4ac8c17427102e847a526420aeeaae31, type: 2}
       propertyPath: m_LocalScale.y
