@@ -14,6 +14,7 @@ public class SnowBallScript : MonoBehaviour
 	
 	private Vector3 direction;
 	private Vector3 startPosition;
+	public GameObject snowballImpactPrefab;
 	 
 	public enum BallState
 	{
@@ -67,9 +68,13 @@ public class SnowBallScript : MonoBehaviour
 		if (owner != null) {
 			if (other.CompareTag ("Wall") && !owner.Equals (other.transform.parent.GetComponent<WallsScript> ().owner)) {
 				Damage (other);
+				Instantiate(snowballImpactPrefab, this.transform.position, Quaternion.identity);
+				Destroy(this.gameObject);
 			}
 			if (other.CompareTag ("Character") && !owner.Equals (other.transform.parent.gameObject)) {
 				Damage (other);
+				Instantiate(snowballImpactPrefab, this.transform.position, Quaternion.identity);
+				Destroy(this.gameObject);
 			}
 		}
 	}

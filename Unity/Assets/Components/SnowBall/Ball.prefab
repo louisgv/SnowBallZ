@@ -76,6 +76,7 @@ MonoBehaviour:
   sizeSpeed: .449999988
   speed: 45
   owner: {fileID: 0}
+  snowballImpactPrefab: {fileID: 122804, guid: 042da05e2515949bc9272c8a9baf74cd, type: 2}
   state: 0
 --- !u!135 &13539408
 SphereCollider:
@@ -116,6 +117,10 @@ Prefab:
       propertyPath: sizeSpeed
       value: .449999988
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: snowballImpactPrefab
+      value: 
+      objectReference: {fileID: 122804, guid: 042da05e2515949bc9272c8a9baf74cd, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 105890}
